@@ -76,8 +76,8 @@ insert into bookings values
 (3, 3, 2, '2023-12-01', '2023-12-02', 'confirmed', 60),
 (4, 1, 1, '2023-12-10', '2023-12-12', 'pending', 100);
 ```
-#SQL Queries & Explanations
-##Query 1: JOIN
+# SQL Queries & Explanations
+## Query 1: JOIN
 Retrieve booking information along with: Customer name and Vehicle name
 Concepts used: INNER JOIN
 ```sql
@@ -87,12 +87,12 @@ select b.booking_id, u.name as customer_name,
 inner join bookings as b on u.user_id=b.user_id
 inner join vehicles as v on b.vehicle_id=v.vehicle_id;
 ```
-####Explanation
+#### Explanation
 As the customer name is on users table, vehicle name is on vehicles table and booking information is on the bookings table that's why
 we join the users,vehicles and the bookings table to retrive the data. bookings table have the link with the users and the vehicles that's
 why we join the bookings table withe other two tables.
 
-##Query 2: EXISTS
+## Query 2: EXISTS
 Find all vehicles that have never been booked.
 Concepts used: NOT EXISTS
 ```sql
@@ -100,23 +100,23 @@ select * from vehicles as v
 where not exists (select b.vehicle_id from bookings as b 
                   where v.vehicle_id = b.vehicle_id);
 ```
-####Explanation
+#### Explanation
 In this case we have to retrive the vehicle information that have not booked yet. To retrive this information firstly we need to retrive the 
 vehicle that are booked from the bookings table, then we apply the not exists clause on the vehicles table with retrive data. Then it will return 
 the vehicle information except where v.vehicle_id = b.vehicle_id that means it return the data where v.vehicle_id <> b.vehicle_id
 
-##Query 3: WHERE
+## Query 3: WHERE
 Retrieve all available vehicles of a specific type (e.g. cars).
 Concepts used: SELECT, WHERE
 ```sql
 select * from vehicles
 where status = 'available' and type = 'car';
 ```
-####Explanation
+#### Explanation
 To retrive the vehicle from vehicles table of avaiable car we find to check both status = 'available' and type = 'car' condition. 
 Then it will return the vehicle that are available car.
 
-##Query 4: GROUP BY and HAVING
+## Query 4: GROUP BY and HAVING
 Find the total number of bookings for each vehicle and display only those vehicles that have more than 2 bookings.
 Concepts used: GROUP BY, HAVING, COUNT
 ```sql
@@ -124,7 +124,7 @@ select v.name as vehicle_name, count(*) as total_bookings from vehicles as v
 join bookings as b on v.vehicle_id = b.vehicle_id
 group by v.name having count(*) > 2;
 ```
-####Explanation
+#### Explanation
 To find the vehicle that have more than 2 bookings we need to join the bookings and the vehicles table because booking info and vehicle info contain two 
 different table. Then if apply the goup by clause then we can make group based on the vehicle name as the requirement because we need to find the booking
 info for each vehicle. After that we check count(*)> 2, it will return that group that have more than 2 rows.
